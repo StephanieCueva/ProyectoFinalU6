@@ -1,27 +1,23 @@
 package com.certus.demo.controllers;
 
-import com.certus.demo.entidades.Addition;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.naming.Binding;
+@RestController
+@RequestMapping("/app")
 
-@Controller
 public class AdditionController {
-
-    @GetMapping("/index")
-    public String ViewForm(Model model){
-    model.addAttribute("Addition", new Addition());
-    return "index";
-    }
-
-    @PostMapping("/resultado")
-    public String addForm(@ModelAttribute Addition addition, BindingResult result, Model model){
-        model.addAttribute("addition",addition);
-        return "resultado";
+    @GetMapping("/sumar")
+    public ResponseEntity<Integer> suma(@RequestParam("num1") int num1,@RequestParam("num2") int num2){
+        try {
+            int resultado = num1 + num2;
+            return new ResponseEntity<>(resultado, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
