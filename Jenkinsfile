@@ -22,7 +22,7 @@ pipeline{
         }
         stage('Subiendo imagen a docker hub'){
             steps{
-                bat 'docker login -u stephaniecueva -p stephanie1408.'
+                bat 'docker login -u stephaniecueva -p stefy0809'
                 bat 'docker push stephaniecueva/proyectofinal:v1'
             }
         }
